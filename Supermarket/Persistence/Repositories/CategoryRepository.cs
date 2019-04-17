@@ -1,4 +1,5 @@
-﻿using Supermarket.Domain.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Supermarket.Domain.Models;
 using Supermarket.Domain.Repositories;
 using Supermarket.Persistence.Contexts;
 using System;
