@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Supermarket.Domain.Models;
-using Supermarket.Domain.Services;
-using Supermarket.Ressource;
+using Supermarket.Domain.Services.CategoryServices;
+using Supermarket.Extensions;
+using Supermarket.Ressource.CategoryRessources.Read;
+using Supermarket.Ressource.CategoryRessources.Write;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,12 @@ namespace Supermarket.Controllers.V1
             var categories = await _categoryService.ListAsync();
             var ressources = _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryRessource>>(categories);
             return ressources;
+        }
+        [HttpPost]
+        public async Task<IActionResult> PostAsync([FromBody] SaveCategoryRessource resource)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.GetErrorMessages());
         }
     }
 }

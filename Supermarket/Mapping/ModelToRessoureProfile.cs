@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Supermarket.Domain.Models;
-using Supermarket.Ressource;
+using Supermarket.Ressource.CategoryRessources.Read;
 using System;
 using System.Collections.Generic;
 using System.Linq;

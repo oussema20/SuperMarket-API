@@ -1,12 +1,10 @@
 ﻿using Supermarket.Domain.Models;
-using Supermarket.Domain.Repositories;
-using Supermarket.Domain.Services;
-using System;
+using Supermarket.Domain.Repositories.CategoryRepositories;
+using Supermarket.Domain.Services.CategoryServices;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace Supermarket.Controllers.Services
+namespace Supermarket.Controllers.Services.CategoryServicesImplementations
 {
     public class CategoryService : ICategoryService
     {

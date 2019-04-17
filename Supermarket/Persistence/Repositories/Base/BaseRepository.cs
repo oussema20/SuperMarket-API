@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Supermarket.Persistence.Repositories
+namespace Supermarket.Persistence.Repositories.Base
 {
     public abstract class BaseRepository
     {
-        public readonly  AppDbContext _context;
+        public readonly AppDbContext _context;
 
         public BaseRepository(AppDbContext context)
         {

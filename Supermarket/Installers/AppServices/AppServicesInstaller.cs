@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Supermarket.Controllers.Services;
-using Supermarket.Domain.Repositories;
-using Supermarket.Domain.Services;
+using Supermarket.Controllers.Services.CategoryServicesImplementations;
+using Supermarket.Domain.Repositories.CategoryRepositories;
+using Supermarket.Domain.Services.CategoryServices;
 using Supermarket.Persistence.Contexts;
-using Supermarket.Persistence.Repositories;
-
+using Supermarket.Persistence.Repositories.CategoryRepositoriesImplementations;
 
 namespace Supermarket.Installers.AppServices
 {
