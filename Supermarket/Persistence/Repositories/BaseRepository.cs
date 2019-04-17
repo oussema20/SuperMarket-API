@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Supermarket.Persistence.Repositories.Base
+namespace Supermarket.Persistence.Repositories
 {
     public abstract class BaseRepository
     {

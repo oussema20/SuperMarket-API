@@ -2,7 +2,6 @@
 using Supermarket.Domain.Models;
 using Supermarket.Domain.Repositories.CategoryRepositories;
 using Supermarket.Persistence.Contexts;
-using Supermarket.Persistence.Repositories.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +18,11 @@ namespace Supermarket.Persistence.Repositories.CategoryRepositoriesImplementatio
         public async Task<IEnumerable<Category>> ListAsync()
         {
             return await _context.Categories.ToListAsync();
+        }
+
+        public async Task AddAsync(Category category)
+        {
+            await _context.Categories.AddAsync(category);
         }
     }
 }

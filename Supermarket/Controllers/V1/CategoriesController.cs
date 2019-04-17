@@ -37,13 +37,19 @@ namespace Supermarket.Controllers.V1
         public async Task<IActionResult> PostAsync([FromBody] SaveCategoryRessource resource)
         {
             if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState.GetErrorMessages());
+            }
+                
 
             var category = _mapper.Map<SaveCategoryRessource, Category>(resource);
             var result = await _categoryService.SaveAsync(category);
 
             if (!result.Success)
+            {
                 return BadRequest(result.Message);
+            }
+                
 
             var categoryResource = _mapper.Map<Category, CategoryRessource>(result.Category);
             return Ok(categoryResource);
