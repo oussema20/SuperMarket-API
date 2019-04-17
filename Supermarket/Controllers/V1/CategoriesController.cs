@@ -38,6 +38,8 @@ namespace Supermarket.Controllers.V1
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
+
+            var category = _mapper.Map<SaveCategoryRessource, Category>(resource);
         }
     }
 }
