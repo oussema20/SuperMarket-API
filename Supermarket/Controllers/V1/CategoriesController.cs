@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Supermarket.Domain.Models;
 using Supermarket.Domain.Services;
+using Supermarket.Ressource;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +17,19 @@ namespace Supermarket.Controllers.V1
     public class CategoriesController : Controller
     {
         private ICategoryService _categoryService;
+        private IMapper _mapper;
 
-        public CategoriesController(ICategoryService categoryService)
+        public CategoriesController(ICategoryService categoryService, IMapper mapper)
         {
             _categoryService = categoryService;
+            _mapper = mapper;
         }
         [HttpGet]
-        public async Task<IEnumerable<Category>> GetAllAsync()
+        public async Task<IEnumerable<CategoryRessource>> GetAllAsync()
         {
             var categories = await _categoryService.ListAsync();
-            return categories;
+            var ressources = _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryRessource>>(categories);
+            return ressources;
         }
     }
 }

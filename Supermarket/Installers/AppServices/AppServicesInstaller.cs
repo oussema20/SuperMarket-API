@@ -7,6 +7,7 @@ using Supermarket.Domain.Services;
 using Supermarket.Persistence.Contexts;
 using Supermarket.Persistence.Repositories;
 
+
 namespace Supermarket.Installers.AppServices
 {
     public class AppServicesInstaller: IInstaller
