@@ -19,6 +19,25 @@ namespace Supermarket.Controllers.Services.CategoryServicesImplementations
             _categoryRepository = categoryRepository;
             _unitOfWork = unitOfWork;
         }
+
+        public async Task<SaveCategoryResponce> DeleteAsync(int id)
+        {
+            var existingCategory = await _categoryRepository.FindByIdAsync(id);
+
+            if (existingCategory == null)
+                return new SaveCategoryResponce("Category not found");
+
+            try{
+                _categoryRepository.Remove(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new SaveCategoryResponce(existingCategory);
+            }catch(Exception ex)
+            {
+                return new SaveCategoryResponce($"An error occured when deleting the category : {ex.Message}");
+            }
+        }
+
         public async Task<IEnumerable<Category>> ListAsync()
         {
             return await _categoryRepository.ListAsync();
