@@ -11,5 +11,6 @@ namespace Supermarket.Domain.Services.CategoryServices
     {
         Task<IEnumerable<Category>> ListAsync();
         Task<SaveCategoryResponce> SaveAsync(Category category);
+        Task<SaveCategoryResponce> UpdateAsync(int id, Category category);
     }
 }

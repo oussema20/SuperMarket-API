@@ -38,5 +38,27 @@ namespace Supermarket.Controllers.Services.CategoryServicesImplementations
                 return new SaveCategoryResponce($"An error occurred when saving the category: {ex.Message}");
             }
         }
+
+        public async Task<SaveCategoryResponce> UpdateAsync(int id, Category category)
+        {
+            var existingCategory = await _categoryRepository.FindByIdAsync(id);
+
+            if (existingCategory == null)
+                return new SaveCategoryResponce("Category not found");
+
+            existingCategory.Name = category.Name;
+
+            try
+            {
+                _categoryRepository.Update(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new SaveCategoryResponce(existingCategory);
+            }
+            catch (Exception e)
+            {
+                return new SaveCategoryResponce($"An error occured when updating the category:{e.Message}");
+            }
+        }
     }
 }
