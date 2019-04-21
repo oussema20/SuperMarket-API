@@ -27,14 +27,14 @@ namespace Supermarket.Controllers.V1
             _mapper = mapper;
         }
         [HttpGet]
-        public async Task<IEnumerable<CategoryRessource>> GetAllAsync()
+        public async Task<IEnumerable<CategoryRequest>> GetAllAsync()
         {
             var categories = await _categoryService.ListAsync();
-            var ressources = _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryRessource>>(categories);
+            var ressources = _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryRequest>>(categories);
             return ressources;
         }
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] SaveCategoryRessource resource)
+        public async Task<IActionResult> PostAsync([FromBody] CategoryResponce resource)
         {
             if (!ModelState.IsValid)
             {
@@ -42,7 +42,7 @@ namespace Supermarket.Controllers.V1
             }
                 
 
-            var category = _mapper.Map<SaveCategoryRessource, Category>(resource);
+            var category = _mapper.Map<CategoryResponce, Category>(resource);
             var result = await _categoryService.SaveAsync(category);
 
             if (!result.Success)
@@ -51,22 +51,22 @@ namespace Supermarket.Controllers.V1
             }
                 
 
-            var categoryResource = _mapper.Map<Category, CategoryRessource>(result.Category);
+            var categoryResource = _mapper.Map<Category, CategoryRequest>(result.Category);
             return Ok(categoryResource);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult>PutAsync(int id, [FromBody] SaveCategoryRessource ressource){
+        public async Task<IActionResult>PutAsync(int id, [FromBody] CategoryResponce ressource){
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
-            var category = _mapper.Map<SaveCategoryRessource, Category>(ressource);
+            var category = _mapper.Map<CategoryResponce, Category>(ressource);
             var result = await _categoryService.UpdateAsync(id, category);
 
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var categoryResource = _mapper.Map<Category, CategoryRessource>(result.Category);
+            var categoryResource = _mapper.Map<Category, CategoryRequest>(result.Category);
             return Ok(categoryResource);
         }
 
@@ -78,7 +78,7 @@ namespace Supermarket.Controllers.V1
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var categoryResource = _mapper.Map<Category, CategoryRessource>(result.Category);
+            var categoryResource = _mapper.Map<Category, CategoryRequest>(result.Category);
             return Ok(categoryResource);
         }
     }

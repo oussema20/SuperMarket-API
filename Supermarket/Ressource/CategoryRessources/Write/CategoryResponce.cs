@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Supermarket.Ressource.CategoryRessources.Write
 {
-    public class SaveCategoryRessource
+    public class CategoryResponce
     {
         [Required]
         [MaxLength(30)]

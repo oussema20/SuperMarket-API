@@ -12,7 +12,7 @@ namespace Supermarket.Mapping
     {
         public ModelToRessoureProfile()
         {
-            CreateMap<Category, CategoryRessource>();
+            CreateMap<Category, CategoryRequest>();
         }
     }
 }

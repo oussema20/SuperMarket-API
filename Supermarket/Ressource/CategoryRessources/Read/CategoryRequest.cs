@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Supermarket.Ressource.CategoryRessources.Read
 {
-    public class CategoryRessource
+    public class CategoryRequest
     {
         public int Id { get; set; }
         public string Name { get; set; }
