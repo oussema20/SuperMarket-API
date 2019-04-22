@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Supermarket.Domain.Models;
+using Supermarket.Extensions;
 using Supermarket.Ressource.CategoryRessources.Read;
+using Supermarket.Ressource.ProductResources.Read;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,10 @@ namespace Supermarket.Mapping
     {
         public ModelToRessoureProfile()
         {
-            CreateMap<Category, CategoryRequest>();
+            CreateMap<Category, CategoryOutputResource>();
+            CreateMap<Product, ProductOutputResource>()
+                .ForMember(src => src.UnitOfMeasurement,
+                            opt => opt.MapFrom(src => src.UnitOfMeasurement.ToDescriptionString()));
         }
     }
 }
