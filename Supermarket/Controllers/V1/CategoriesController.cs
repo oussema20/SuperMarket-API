@@ -12,10 +12,9 @@ using System.Threading.Tasks;
 
 namespace Supermarket.Controllers.V1
 {
-    [ApiVersion("1.0")]
-    [Route("api/v{api-version:apiVersion}/[controller]")]
-    [ApiController]
 
+    [Route("api/[controller]")]
+    [ApiController]
     public class CategoriesController : Controller
     {
         private ICategoryService _categoryService;

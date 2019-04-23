@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Supermarket.Installers.IInstallerImplementation;
-using Supermarket.Options;
-using SwashbuckleAspNetVersioningShim;
 
 namespace Supermarket
 {
@@ -26,7 +22,7 @@ namespace Supermarket
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApiVersionDescriptionProvider provider)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -40,11 +36,6 @@ namespace Supermarket
            // var swaggerOptions = new SwaggerOption();
 
            // Configuration.GetSection(nameof(SwaggerOption)).Bind(swaggerOptions);
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.ConfigureSwaggerVersions(provider);
-            });
 
             app.UseHttpsRedirection();
             app.UseMvc();
