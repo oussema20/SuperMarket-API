@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 using Supermarket.Domain.Models;
 using Supermarket.Domain.Services.CategoryServices;
@@ -14,7 +15,7 @@ namespace Supermarket.Controllers.V1
 {
 
 
-    public class CategoriesController : Controller
+    public class CategoriesController : ODataController
     {
         private ICategoryService _categoryService;
         private IMapper _mapper;
@@ -24,8 +25,8 @@ namespace Supermarket.Controllers.V1
             _categoryService = categoryService;
             _mapper = mapper;
         }
-        [HttpGet]
-        public async Task<IEnumerable<CategoryOutputResource>> GetAllAsync()
+        [EnableQuery]
+        public async Task<IEnumerable<CategoryOutputResource>> Get()
         {
             var categories = await _categoryService.ListAsync();
             var ressources = _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryOutputResource>>(categories);
