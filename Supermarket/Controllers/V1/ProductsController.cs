@@ -13,8 +13,7 @@ using System.Threading.Tasks;
 namespace Supermarket.Controllers.V1
 {
 
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class ProductsController : Controller
     {
         private IProductService _productService;

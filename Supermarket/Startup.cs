@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNet.OData.Builder;
+using Microsoft.AspNet.OData.Extensions;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OData.Edm;
+using Supermarket.Domain.Models;
 using Supermarket.Installers.IInstallerImplementation;
 
 namespace Supermarket
@@ -33,13 +37,21 @@ namespace Supermarket
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-           // var swaggerOptions = new SwaggerOption();
-
-           // Configuration.GetSection(nameof(SwaggerOption)).Bind(swaggerOptions);
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseMvc(b => {
+                b.MapODataServiceRoute("odata", "odata", GetEdmModel());
+            });
 
+        }
+
+        private static IEdmModel GetEdmModel()
+        {
+            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+            builder.EntitySet<Category>("Categories");
+            builder.EntitySet<Product>("Products");
+
+            return builder.GetEdmModel();
         }
     }
 }
