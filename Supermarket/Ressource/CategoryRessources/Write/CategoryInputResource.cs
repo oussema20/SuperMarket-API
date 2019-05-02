@@ -8,6 +8,7 @@ namespace Supermarket.Ressource.CategoryRessources.Write
 {
     public class CategoryInputResource
     {
+    
         [Required]
         [MaxLength(30)]
         public string Name { get; set; }

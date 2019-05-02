@@ -32,8 +32,8 @@ namespace Supermarket.Controllers.V1
             var resources = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductOutputResource>>(products);
             return resources;
         }
-        [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] ProductInputResource resource)
+
+        public async Task<IActionResult> Post([FromBody] ProductInputResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
@@ -50,14 +50,14 @@ namespace Supermarket.Controllers.V1
             return Ok(productResource);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(int id, [FromBody] ProductInputResource resource)
+
+        public async Task<IActionResult> Put([FromODataUri] int key, [FromBody] ProductInputResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
             var product = _mapper.Map<ProductInputResource, Product>(resource);
-            var result = await _productService.UpdateAsync(id, product);
+            var result = await _productService.UpdateAsync(key, product);
 
             if (!result.Success)
             {
@@ -69,10 +69,10 @@ namespace Supermarket.Controllers.V1
             return Ok(productResource);
 
         }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+
+        public async Task<IActionResult> Delete([FromODataUri] int key)
         {
-            var result = await _productService.DeleteAsync(id);
+            var result = await _productService.DeleteAsync(key);
 
             if (!result.Success)
                 return BadRequest(result.Message);

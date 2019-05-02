@@ -49,8 +49,6 @@ namespace Supermarket.Persistence.Contexts
                         CategoryId = 101,
                     }
                 );
-
-            
         }
     }
 }

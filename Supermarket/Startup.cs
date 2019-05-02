@@ -40,6 +40,7 @@ namespace Supermarket
 
             app.UseHttpsRedirection();
             app.UseMvc(b => {
+                b.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
                 b.MapODataServiceRoute("odata", "odata", GetEdmModel());
             });
 

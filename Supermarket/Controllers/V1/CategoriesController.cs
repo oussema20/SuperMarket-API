@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNet.OData;
+using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Mvc;
 using Supermarket.Domain.Models;
 using Supermarket.Domain.Services.CategoryServices;
@@ -32,8 +33,8 @@ namespace Supermarket.Controllers.V1
             var ressources = _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryOutputResource>>(categories);
             return ressources;
         }
-        [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] CategoryInputResource resource)
+        [EnableQuery]
+        public async Task<IActionResult> Post([FromBody] CategoryInputResource resource)
         {
             if (!ModelState.IsValid)
             {
@@ -54,13 +55,12 @@ namespace Supermarket.Controllers.V1
             return Ok(categoryResource);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult>PutAsync(int id, [FromBody] CategoryInputResource ressource){
+        public async Task<IActionResult>Put([FromODataUri] int key, [FromBody] CategoryInputResource ressource){
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
             var category = _mapper.Map<CategoryInputResource, Category>(ressource);
-            var result = await _categoryService.UpdateAsync(id, category);
+            var result = await _categoryService.UpdateAsync(key, category);
 
             if (!result.Success)
                 return BadRequest(result.Message);
@@ -69,10 +69,10 @@ namespace Supermarket.Controllers.V1
             return Ok(categoryResource);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> PutAsync(int id)
+
+        public async Task<IActionResult> Delete([FromODataUri] int key)
         {
-            var result = await _categoryService.DeleteAsync(id);
+            var result = await _categoryService.DeleteAsync(key);
 
             if (!result.Success)
                 return BadRequest(result.Message);
