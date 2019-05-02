@@ -15,17 +15,22 @@ using System.Threading.Tasks;
 namespace Supermarket.Controllers.V1
 {
 
+    [ApiVersion("1.0")]
 
+    [ODataRoutePrefix("Categories")]
     public class CategoriesController : ODataController
     {
         private ICategoryService _categoryService;
         private IMapper _mapper;
+
 
         public CategoriesController(ICategoryService categoryService, IMapper mapper)
         {
             _categoryService = categoryService;
             _mapper = mapper;
         }
+      //  [EnableQuery]
+        [Produces("application/json")]
         [EnableQuery]
         public async Task<IEnumerable<CategoryOutputResource>> Get()
         {

@@ -2,11 +2,15 @@
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OData.Edm;
 using Supermarket.Domain.Models;
 using Supermarket.Installers.IInstallerImplementation;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace Supermarket
 {
@@ -26,7 +30,7 @@ namespace Supermarket
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, VersionedODataModelBuilder modelBuilder, IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
@@ -39,20 +43,26 @@ namespace Supermarket
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc(b => {
-                b.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
-                b.MapODataServiceRoute("odata", "odata", GetEdmModel());
+            app.UseMvc(routeBulder => {
+                routeBulder.MapVersionedODataRoutes("odata", "api", modelBuilder.GetEdmModels());
             });
+            app.UseSwagger();
+            app.UseSwaggerUI(
+                options =>
+                {
+                       options.SwaggerEndpoint("/swagger/v1/swagger.json","sample");
+                }
+                );
 
         }
 
-        private static IEdmModel GetEdmModel()
-        {
-            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-            builder.EntitySet<Category>("Categories");
-            builder.EntitySet<Product>("Products");
+        //private static IEdmModel GetEdmModel()
+        //{
+        //    ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+        //    builder.EntitySet<Category>("Categories");
+        //    builder.EntitySet<Product>("Products");
 
-            return builder.GetEdmModel();
-        }
+        //    return builder.GetEdmModel();
+        //}
     }
 }
